@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ../backend
+      dockerfile: ../deployment/backend/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - AUTOGEN_DEBUG=False
+      - AUTOGEN_GEMINI_API_KEY=${AUTOGEN_GEMINI_API_KEY}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: ../deployment/frontend/Dockerfile
+    ports:
+      - "7860:7860"
+    environment:
+      - AUTOGEN_API_URL=http://backend:8000/api/v1
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+networks:
+  default:
+    name: autogen-planner-network 
