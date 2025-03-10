@@ -43,9 +43,36 @@ The project is structured with a clear separation between frontend and backend c
    pip install -r requirements.txt
    ```
 
-4. Create a `.env` file in the backend directory with your Gemini API key:
+4. Create environment files:
+   
+   For the backend, create a `.env` file in the `backend` directory:
    ```
-   AUTOGEN_GEMINI_API_KEY=your_api_key_here
+   # AutoGen Planner Backend Environment Variables
+   
+   # Application settings
+   AUTOGEN_APP_NAME=AutoGen Planner
+   AUTOGEN_API_PREFIX=/api/v1
+   AUTOGEN_DEBUG=False
+   
+   # API keys
+   AUTOGEN_GEMINI_API_KEY=your_gemini_api_key_here
+   ```
+   
+   For the frontend, create a `.env` file in the `frontend` directory:
+   ```
+   # AutoGen Planner Frontend Environment Variables
+   
+   # API settings
+   AUTOGEN_API_URL=http://localhost:8000/api/v1
+   
+   # UI settings
+   AUTOGEN_PORT=7860
+   AUTOGEN_SHARE=False
+   ```
+
+   Alternatively, you can run the setup script which will create these files for you:
+   ```
+   .\scripts\setup_dev_env.ps1
    ```
 
 ### Running the Application
@@ -63,6 +90,11 @@ The project is structured with a clear separation between frontend and backend c
    ```
 
 3. Open your browser and navigate to `http://localhost:7860` to access the application.
+
+Alternatively, you can use the provided script to run both components:
+```
+.\scripts\run_local.ps1
+```
 
 ## Development
 

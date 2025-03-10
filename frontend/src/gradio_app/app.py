@@ -6,8 +6,12 @@ This module defines the main Gradio application for the frontend.
 
 import gradio as gr
 import os
+from dotenv import load_dotenv
 from .components.chat import ChatInterface
 from .api_client import APIClient
+
+# Load environment variables from .env file
+load_dotenv()
 
 def create_app(api_url: str = None) -> gr.Blocks:
     """
@@ -45,7 +49,7 @@ def create_app(api_url: str = None) -> gr.Blocks:
     
     return app
 
-def run_app(api_url: str = None, port: int = 7860, share: bool = False):
+def run_app(api_url: str = None, port: int = None, share: bool = None):
     """
     Run the Gradio application.
     
@@ -54,12 +58,19 @@ def run_app(api_url: str = None, port: int = 7860, share: bool = False):
         port: The port to run the application on.
         share: Whether to create a public link.
     """
+    # Use environment variables if parameters are not provided
+    if api_url is None:
+        api_url = os.environ.get("AUTOGEN_API_URL", "http://localhost:8000/api/v1")
+    
+    if port is None:
+        port = int(os.environ.get("AUTOGEN_PORT", 7860))
+    
+    if share is None:
+        share = os.environ.get("AUTOGEN_SHARE", "False").lower() == "true"
+    
     app = create_app(api_url=api_url)
     app.launch(server_port=port, share=share)
 
 if __name__ == "__main__":
-    # Get the API URL from the environment variable
-    api_url = os.environ.get("AUTOGEN_API_URL", "http://localhost:8000/api/v1")
-    
-    # Run the application
-    run_app(api_url=api_url) 
+    # Run the application with settings from environment variables
+    run_app() 

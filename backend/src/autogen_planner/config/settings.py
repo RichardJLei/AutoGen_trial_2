@@ -5,8 +5,14 @@ This module defines the application settings using Pydantic's BaseSettings.
 """
 
 import os
+import pathlib
 from pydantic import BaseSettings
 from typing import Optional
+
+# Determine the location of the .env file
+# Look for it in the backend directory
+backend_dir = pathlib.Path(__file__).parent.parent.parent.parent
+env_file = backend_dir / ".env"
 
 class Settings(BaseSettings):
     """
@@ -27,7 +33,7 @@ class Settings(BaseSettings):
         """
         Configuration for the settings.
         """
-        env_file = ".env"
+        env_file = str(env_file)
         env_prefix = "AUTOGEN_"
 
 # Create a global settings instance

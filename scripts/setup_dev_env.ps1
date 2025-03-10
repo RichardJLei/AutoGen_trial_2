@@ -19,11 +19,43 @@ catch {
     exit 1
 }
 
-# Create .env file if it doesn't exist
-if (-not (Test-Path -Path ".\.env")) {
-    Write-Host "Creating .env file from template..." -ForegroundColor Yellow
-    Copy-Item -Path ".\.env.example" -Destination ".\.env"
-    Write-Host "Please edit the .env file to add your API keys." -ForegroundColor Yellow
+# Create backend .env file if it doesn't exist
+if (-not (Test-Path -Path ".\backend\.env")) {
+    Write-Host "Creating backend/.env file from template..." -ForegroundColor Yellow
+    
+    # Create a basic template for the backend .env file
+    @"
+# AutoGen Planner Backend Environment Variables
+
+# Application settings
+AUTOGEN_APP_NAME=AutoGen Planner
+AUTOGEN_API_PREFIX=/api/v1
+AUTOGEN_DEBUG=False
+
+# API keys
+AUTOGEN_GEMINI_API_KEY=your_gemini_api_key_here
+"@ | Out-File -FilePath ".\backend\.env" -Encoding utf8
+    
+    Write-Host "Please edit the backend/.env file to add your API keys." -ForegroundColor Yellow
+}
+
+# Create frontend .env file if it doesn't exist
+if (-not (Test-Path -Path ".\frontend\.env")) {
+    Write-Host "Creating frontend/.env file from template..." -ForegroundColor Yellow
+    
+    # Create a basic template for the frontend .env file
+    @"
+# AutoGen Planner Frontend Environment Variables
+
+# API settings
+AUTOGEN_API_URL=http://localhost:8000/api/v1
+
+# UI settings
+AUTOGEN_PORT=7860
+AUTOGEN_SHARE=False
+"@ | Out-File -FilePath ".\frontend\.env" -Encoding utf8
+    
+    Write-Host "Please edit the frontend/.env file if needed." -ForegroundColor Yellow
 }
 
 # Create virtual environments

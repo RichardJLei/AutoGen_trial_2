@@ -33,13 +33,34 @@ Alternatively, you can download the source code as a ZIP file and extract it.
 
 ### Setting Up the Environment
 
-1. Create a `.env` file in the root directory of the project:
+1. Create environment files:
 
-```
-AUTOGEN_GEMINI_API_KEY=your_gemini_api_key_here
-```
+   For the backend, create a `.env` file in the `backend` directory:
+   ```
+   # AutoGen Planner Backend Environment Variables
+   
+   # Application settings
+   AUTOGEN_APP_NAME=AutoGen Planner
+   AUTOGEN_API_PREFIX=/api/v1
+   AUTOGEN_DEBUG=False
+   
+   # API keys
+   AUTOGEN_GEMINI_API_KEY=your_gemini_api_key_here
+   ```
+   
+   For the frontend, create a `.env` file in the `frontend` directory:
+   ```
+   # AutoGen Planner Frontend Environment Variables
+   
+   # API settings
+   AUTOGEN_API_URL=http://localhost:8000/api/v1
+   
+   # UI settings
+   AUTOGEN_PORT=7860
+   AUTOGEN_SHARE=False
+   ```
 
-Replace `your_gemini_api_key_here` with your actual Gemini API key.
+   Replace `your_gemini_api_key_here` with your actual Gemini API key.
 
 2. Run the setup script:
 
@@ -51,7 +72,7 @@ Replace `your_gemini_api_key_here` with your actual Gemini API key.
 ./scripts/setup_dev_env.sh
 ```
 
-This script will create virtual environments for the backend and frontend, and install the required dependencies.
+This script will create virtual environments for the backend and frontend, and install the required dependencies. It will also create the environment files if they don't exist.
 
 ## Running the Application
 
@@ -68,6 +89,20 @@ This script will create virtual environments for the backend and frontend, and i
 2. Open your browser and navigate to:
    - Frontend: http://localhost:7860
    - Backend API: http://localhost:8000/docs (Swagger UI)
+
+Alternatively, you can start the components separately:
+
+1. Start the backend server:
+```bash
+cd backend
+python -m src.autogen_planner.main
+```
+
+2. Start the frontend application:
+```bash
+cd frontend
+python -m src.gradio_app.app
+```
 
 ## Using the Application
 
@@ -90,7 +125,7 @@ Here are some example requests you can try:
 
 If the backend fails to start, check the following:
 
-1. Make sure you have set the Gemini API key correctly in the `.env` file.
+1. Make sure you have set the Gemini API key correctly in the `backend/.env` file.
 2. Check if the required ports (8000 for the backend, 7860 for the frontend) are available.
 
 ### Frontend Not Connecting to Backend
@@ -98,7 +133,7 @@ If the backend fails to start, check the following:
 If the frontend cannot connect to the backend, check the following:
 
 1. Make sure the backend is running.
-2. Check if the `AUTOGEN_API_URL` environment variable is set correctly.
+2. Check if the `AUTOGEN_API_URL` environment variable is set correctly in the `frontend/.env` file.
 
 ### Other Issues
 

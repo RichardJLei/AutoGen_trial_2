@@ -9,9 +9,15 @@ Write-Host "  AutoGen Planner - Local Launcher  "
 Write-Host "====================================="
 Write-Host ""
 
-# Check if .env file exists
-if (-not (Test-Path -Path ".\.env")) {
-    Write-Host "Error: .env file not found. Please create one based on .env.example." -ForegroundColor Red
+# Check if backend .env file exists
+if (-not (Test-Path -Path ".\backend\.env")) {
+    Write-Host "Error: backend/.env file not found. Please create one based on .env.example." -ForegroundColor Red
+    exit 1
+}
+
+# Check if frontend .env file exists
+if (-not (Test-Path -Path ".\frontend\.env")) {
+    Write-Host "Error: frontend/.env file not found. Please create one based on .env.example." -ForegroundColor Red
     exit 1
 }
 
