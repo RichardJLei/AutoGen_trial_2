@@ -25,11 +25,6 @@ The project is structured with a clear separation between frontend and backend c
 
 ### Installation
 
-1. Clone the repository:
-   ```
-   git clone https://github.com/yourusername/autogen_planner.git
-   cd autogen_planner
-   ```
 
 2. Set up the backend:
    ```
@@ -112,9 +107,6 @@ The frontend is built with Gradio and includes:
 - Plan display for showing generated plans
 - API client for communication with the backend
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Acknowledgments
 
